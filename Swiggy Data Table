@@ -1,0 +1,174 @@
+-- Users table
+CREATE TABLE Users (
+    UserID INT PRIMARY KEY,
+    UserName VARCHAR(255),
+    City VARCHAR(255),
+    TotalOrderValue DECIMAL(10, 2)
+);
+
+-- Orders table
+CREATE TABLE Orders (
+    OrderID INT PRIMARY KEY,
+    UserID INT,
+    ItemsCount INT,
+    TotalAmount DECIMAL(10, 2),
+    OrderDate DATE,
+    FOREIGN KEY (UserID) REFERENCES Users(UserID)
+);
+
+-- OrderedDishes table
+CREATE TABLE OrderedDishes (
+    OrderID INT,
+    DishID INT,
+    Quantity INT,
+    PRIMARY KEY (OrderID, DishID),
+    FOREIGN KEY (OrderID) REFERENCES Orders(OrderID)
+);
+
+-- Dishes table
+CREATE TABLE Dishes (
+    DishID INT PRIMARY KEY,
+    DishName VARCHAR(255),
+    Category VARCHAR(255)
+);
+
+-- DeliveryPartners table
+CREATE TABLE DeliveryPartners (
+    DeliveryPartnerID INT PRIMARY KEY,
+    Name VARCHAR(255),
+    City VARCHAR(255),
+    GreenKilometers DECIMAL(10, 2)
+);
+
+-- Deliveries table
+CREATE TABLE Deliveries (
+    DeliveryID INT PRIMARY KEY,
+    OrderID INT,
+    DeliveryPartnerID INT,
+    DeliveryDistance DECIMAL(10, 2),
+    DeliveryTimeInSeconds INT,
+    FOREIGN KEY (OrderID) REFERENCES Orders(OrderID),
+    FOREIGN KEY (DeliveryPartnerID) REFERENCES DeliveryPartners(DeliveryPartnerID)
+);
+
+-- Sample data for Users table
+INSERT INTO Users (UserID, City, TotalOrderValue)
+VALUES
+  (1, 'Mumbai', 4230000.00),
+  (2, 'Chennai', NULL),
+  (3, 'Delhi', NULL),
+  (4, 'Hyderabad', NULL),
+  (5, 'Jhansi', NULL),
+  (6, 'Bangalore', NULL),
+  (7, 'Nagpur', NULL),
+  (8, 'Chandigarh', NULL),
+  (9, 'Delhi', NULL);
+
+-- Sample data for Orders table
+INSERT INTO Orders (OrderID, UserID, ItemsCount, TotalAmount, OrderDate)
+VALUES
+  (1, 1, NULL, NULL, NULL),
+  (2, 2, 10000, NULL, NULL),
+  (3, 3, 12000, NULL, NULL),
+  (4, 4, 10500, NULL, NULL),
+  (5, 5, 269, NULL, NULL),
+  (6, 6, NULL, NULL, NULL),
+  (7, 7, NULL, NULL, NULL),
+  (8, 8, NULL, NULL, NULL),
+  (9, 9, NULL, NULL, NULL);
+
+-- Sample data for DeliveryPartners table
+INSERT INTO DeliveryPartners (DeliveryPartnerID, Name, City, GreenKilometers)
+VALUES
+  (1, 'Venkatasen', 'Chennai', 1664.20),
+  (2, 'Santhini', 'Kochi', NULL),
+  (3, 'Ramjeet Singh', 'Gurgaon', NULL),
+  (4, 'Pardeep Kaur', 'Ludhiana', NULL);
+  -- PopularDishes table
+CREATE TABLE PopularDishes (
+    DishID INT PRIMARY KEY,
+    Festival VARCHAR(255),
+    DishName VARCHAR(255),
+    OrdersCount INT
+);
+
+-- InternationalCuisine table
+CREATE TABLE InternationalCuisine (
+    CuisineID INT PRIMARY KEY,
+    CuisineName VARCHAR(255),
+    OrderRateMultiplier DECIMAL(10, 2)
+);
+
+-- HealthyEatingTrends table
+CREATE TABLE HealthyEatingTrends (
+    TrendID INT PRIMARY KEY,
+    TrendName VARCHAR(255),
+    OrderCount INT
+);
+
+-- BiryaniLove table
+CREATE TABLE BiryaniLove (
+    BiryaniID INT PRIMARY KEY,
+    BiryaniType VARCHAR(255),
+    OrdersPerSecond DECIMAL(10, 2)
+);
+
+-- SwiggyOneSavings table
+CREATE TABLE SwiggyOneSavings (
+    SavingsID INT PRIMARY KEY,
+    SavingsAmount DECIMAL(10, 2)
+);
+
+-- DineoutDelights table
+CREATE TABLE DineoutDelights (
+    DelightID INT PRIMARY KEY,
+    SavingsAmount DECIMAL(10, 2),
+    RecordBillAmount DECIMAL(10, 2)
+);
+
+-- Instamart table
+CREATE TABLE Instamart (
+    InstamartID INT PRIMARY KEY,
+    CityRank INT,
+    FastestDeliveryTimeInSeconds INT,
+    EcoFriendlyDeliveriesCount INT
+);
+
+-- Insert data into PopularDishes table
+INSERT INTO PopularDishes (DishID, Festival, DishName, OrdersCount)
+VALUES
+  (1, 'Durga Pujo', 'Gulab Jamuns', 7700000),
+  (2, 'Navaratri', 'Masala Dosa', NULL);
+
+-- Insert data into InternationalCuisine table
+INSERT INTO InternationalCuisine (CuisineID, CuisineName, OrderRateMultiplier)
+VALUES
+  (1, 'Japanese', 2.0),
+  (2, 'Korean', 1.0);
+
+-- Insert data into HealthyEatingTrends table
+INSERT INTO HealthyEatingTrends (TrendID, TrendName, OrderCount)
+VALUES
+  (1, 'Father’s Day', NULL),
+  (2, 'Sugar-Free Desserts', 2100000),
+  (3, 'Vegan Orders', NULL);
+
+-- Insert data into BiryaniLove table
+INSERT INTO BiryaniLove (BiryaniID, BiryaniType, OrdersPerSecond)
+VALUES
+  (1, 'Regular Biryani', 2.5);
+
+-- Sample data for SwiggyOneSavings table
+INSERT INTO SwiggyOneSavings (SavingsID, SavingsAmount)
+VALUES
+  (1, 9000000.00);
+  
+-- Sample data for DineoutDelights table
+INSERT INTO DineoutDelights (DelightID, SavingsAmount, RecordBillAmount)
+VALUES
+  (1, 3000000.00, 300149.00);
+
+-- Insert data into Instamart table
+INSERT INTO Instamart (InstamartID, CityRank, FastestDeliveryTimeInSeconds, EcoFriendlyDeliveriesCount)
+VALUES
+  (1, 17, 65, 1000000);
